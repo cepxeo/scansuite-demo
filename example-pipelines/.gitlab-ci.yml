@@ -1,0 +1,70 @@
+variables:
+  ENG: 4
+  WEBSITE: https://ginandjuice.shop
+  DOCKER_IMAGE: vulnerables/web-dvwa:latest
+
+stages:
+  - build
+  - test
+  - prelive
+  - prod
+ 
+Build:
+  stage: build
+  script:
+    - echo "Building"
+
+SAST Semgrep:
+  stage: build
+  script:
+    ~/scansuite semgrep $ENG
+
+Secrets Scan:
+  stage: build
+  script:
+    - ~/scansuite gitleaks $ENG
+
+SCA Trivy:
+  stage: test
+  script:
+    - ~/scansuite dep_trivy $ENG
+
+SCA Snyk:
+  stage: test
+  script:
+    - ~/scansuite dep_snyk $ENG
+
+Image Vulns Trivy:
+  stage: test
+  script:
+    - ~/scansuite image_trivy $ENG $DOCKER_IMAGE
+
+IACS Trivy:
+  stage: test
+  script:
+    - ~/scansuite iacs_trivy $ENG
+
+IACS Kics:
+  stage: test
+  script:
+    - ~/scansuite iacs_kics $ENG
+
+Prelive:
+  stage: prelive
+  script:
+    - id
+
+DAST ZAP:
+  stage: prelive
+  script:
+    - ~/scansuite zap_base $ENG $WEBSITE
+
+DAST Nuclei:
+  stage: prelive
+  script:
+    - ~/scansuite nuclei $ENG $WEBSITE
+
+Production:
+  stage: prod
+  script:
+    - id
