@@ -2,16 +2,14 @@
 
 ScanSuite is the self contained vulnerability scanning orchestrator for the code (SAST), Infrastructure as Code (IACS), Dependency (SCA / OSS), Dynamic Analysis (DAST) as well as Infrastructure assessment security tools.
 
-Results are exported to [DefectDojo](https://github.com/DefectDojo/django-DefectDojo).
-
 ### Install ScanSuite
 
 ```
-chmod +x install-scansuite-debian.sh
-./install-scansuite-debian.sh
+chmod +x install-ubuntu.sh
+./install-ubuntu.sh
 ```
 
-Ensure you noted the admin passwords for DefectDojo and ScanSuite. If not, you can find ScanSuite password here:
+After installation you will find ScanSuite password here:
 
 ```
 cat /var/tmp/scansuite.log | grep password
@@ -48,4 +46,4 @@ Open the browser and login to the console with the user `admin`
 
 ## Licence
 
-All parts of the ScanSuite framework, including the source code belong to the author of this repository (Sergey Egorov) and may only be used for product demonstration purposes.
+All parts of the ScanSuite framework, including the source code belong to the author (Sergey Egorov) and may only be used for product demonstration purposes.
