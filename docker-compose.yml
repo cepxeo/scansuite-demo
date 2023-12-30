@@ -14,7 +14,9 @@ services:
       
   redis:
     image: redis:6-alpine
-
+    # ports:
+    #   - "6379:6379"
+    
   worker:
     image: cepxeo/worker
     command: celery -A app.celery worker --concurrency=3 --loglevel=info --pool=prefork
@@ -35,6 +37,9 @@ services:
       POSTGRES_DB: ${PS_DATABASE_NAME}
       POSTGRES_USER: ${PS_DATABASE_USER}
       POSTGRES_PASSWORD: ${PS_DATABASE_PASSWORD}
+    # ports:
+    #   - "5432:5432"
+
   nginx:
     image: nginx
     volumes:
